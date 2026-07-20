@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 460" width="780" height="460">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Open+Sans:wght@400;600&amp;display=swap');
+      .title { font-family: 'Oswald', sans-serif; font-weight: 700; }
+      .subtitle { font-family: 'Oswald', sans-serif; font-weight: 600; }
+      .body { font-family: 'Open Sans', sans-serif; font-weight: 400; }
+      .body-bold { font-family: 'Open Sans', sans-serif; font-weight: 600; }
+    </style>
+    <!-- Fleur-de-lis symbol (Scout emblem) -->
+    <symbol id="fleur-de-lis" viewBox="0 0 100 120">
+      <path d="M50 0 C50 0 42 20 42 35 C42 42 45 48 50 52 C55 48 58 42 58 35 C58 20 50 0 50 0Z
+               M50 52 C40 58 25 55 20 45 C15 35 18 22 25 18 C28 16 32 18 33 22 C34 26 32 30 28 32
+               C35 38 42 42 50 52Z
+               M50 52 C60 58 75 55 80 45 C85 35 82 22 75 18 C72 16 68 18 67 22 C66 26 68 30 72 32
+               C65 38 58 42 50 52Z
+               M50 52 L50 95 M40 85 L50 95 L60 85
+               M35 100 L65 100 L65 108 L35 108Z"
+            fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Trim marks -->
+    <symbol id="trim-mark-h" viewBox="0 0 15 1">
+      <line x1="0" y1="0.5" x2="15" y2="0.5" stroke="#999" stroke-width="0.5"/>
+    </symbol>
+    <symbol id="trim-mark-v" viewBox="0 0 1 15">
+      <line x1="0.5" y1="0" x2="0.5" y2="15" stroke="#999" stroke-width="0.5"/>
+    </symbol>
+  </defs>
+
+  <!-- Labels -->
+  <text x="200" y="16" text-anchor="middle" class="body" font-size="11" fill="#666">FRONT</text>
+  <text x="580" y="16" text-anchor="middle" class="body" font-size="11" fill="#666">BACK</text>
+
+  <!-- ==================== FRONT SIDE ==================== -->
+  <g transform="translate(20, 25)">
+    <!-- Card outline (3.5 x 2 in at ~100 DPI = 350x200) -->
+    <rect x="0" y="0" width="350" height="200" rx="8" ry="8" fill="#003F87"/>
+
+    <!-- Gold diagonal accent band -->
+    <polygon points="0,140 0,200 140,200 350,60 350,0 210,0" fill="#00306B" opacity="0.4"/>
+
+    <!-- Top gold stripe -->
+    <rect x="0" y="0" width="350" height="6" rx="8" ry="8" fill="#FFC72C"/>
+    <rect x="0" y="4" width="350" height="2" fill="#FFC72C"/>
+
+    <!-- Bottom gold stripe -->
+    <rect x="0" y="194" width="350" height="6" rx="0" ry="0" fill="#FFC72C"/>
+    <rect x="0" y="194" width="350" height="6" rx="8" ry="8" fill="#FFC72C"/>
+
+    <!-- Fleur-de-lis emblem -->
+    <g transform="translate(145, 22)" color="#FFC72C">
+      <use href="#fleur-de-lis" width="60" height="72"/>
+    </g>
+
+    <!-- Pack Title -->
+    <text x="175" y="115" text-anchor="middle" class="title" font-size="28" fill="#FFFFFF" letter-spacing="2">CUB SCOUTS</text>
+
+    <!-- Pack Number -->
+    <text x="175" y="148" text-anchor="middle" class="title" font-size="32" fill="#FFC72C" letter-spacing="3">PACK 0000</text>
+
+    <!-- City / Council -->
+    <text x="175" y="175" text-anchor="middle" class="body" font-size="11" fill="#AECBF0" letter-spacing="1">YOUR CITY, STATE · COUNCIL NAME</text>
+  </g>
+
+  <!-- ==================== BACK SIDE ==================== -->
+  <g transform="translate(410, 25)">
+    <!-- Card outline -->
+    <rect x="0" y="0" width="350" height="200" rx="8" ry="8" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+
+    <!-- Top gold header bar -->
+    <rect x="0" y="0" width="350" height="44" rx="8" ry="8" fill="#003F87"/>
+    <rect x="0" y="8" width="350" height="36" fill="#003F87"/>
+
+    <!-- Header: small fleur-de-lis + Pack info -->
+    <g transform="translate(14, 5)" color="#FFC72C">
+      <use href="#fleur-de-lis" width="22" height="26"/>
+    </g>
+    <text x="44" y="22" class="subtitle" font-size="13" fill="#FFFFFF" letter-spacing="1">CUB SCOUTS</text>
+    <text x="44" y="37" class="subtitle" font-size="14" fill="#FFC72C" letter-spacing="1">PACK 0000</text>
+
+    <!-- QR Code placeholder -->
+    <rect x="280" y="54" width="54" height="54" rx="4" ry="4" fill="#F5F5F5" stroke="#CCC" stroke-width="0.75"/>
+    <text x="307" y="78" text-anchor="middle" class="body" font-size="7" fill="#999">QR</text>
+    <text x="307" y="88" text-anchor="middle" class="body" font-size="7" fill="#999">CODE</text>
+    <text x="307" y="118" text-anchor="middle" class="body" font-size="6.5" fill="#999">pack website</text>
+
+    <!-- Meeting Info Section -->
+    <text x="18" y="65" class="body-bold" font-size="9" fill="#003F87" letter-spacing="0.5">MEETING INFORMATION</text>
+    <line x1="18" y1="70" x2="130" y2="70" stroke="#FFC72C" stroke-width="1.5"/>
+
+    <!-- Day/Time -->
+    <text x="18" y="84" class="body-bold" font-size="8.5" fill="#333">Day:</text>
+    <text x="55" y="84" class="body" font-size="8.5" fill="#555">Weekday at 0:00 PM</text>
+
+    <!-- Location -->
+    <text x="18" y="97" class="body-bold" font-size="8.5" fill="#333">Where:</text>
+    <text x="55" y="97" class="body" font-size="8.5" fill="#555">Location Name</text>
+    <text x="55" y="108" class="body" font-size="8" fill="#777">123 Street, City, ST 00000</text>
+
+    <!-- Divider -->
+    <line x1="18" y1="118" x2="260" y2="118" stroke="#E8E8E8" stroke-width="0.75"/>
+
+    <!-- Contact Section -->
+    <text x="18" y="132" class="body-bold" font-size="9" fill="#003F87" letter-spacing="0.5">CONTACT</text>
+    <line x1="18" y1="137" x2="75" y2="137" stroke="#FFC72C" stroke-width="1.5"/>
+
+    <!-- Contact details -->
+    <!-- Email icon (envelope) -->
+    <rect x="18" y="144" width="10" height="7" rx="1.5" ry="1.5" fill="none" stroke="#003F87" stroke-width="0.8"/>
+    <polyline points="18,144 23,149 28,144" fill="none" stroke="#003F87" stroke-width="0.8"/>
+    <text x="32" y="151" class="body" font-size="8.5" fill="#555">email@example.com</text>
+
+    <!-- Phone icon -->
+    <rect x="18" y="158" width="7" height="10" rx="1.5" ry="1.5" fill="none" stroke="#003F87" stroke-width="0.8"/>
+    <line x1="20" y1="165" x2="23" y2="165" stroke="#003F87" stroke-width="0.8"/>
+    <text x="32" y="167" class="body" font-size="8.5" fill="#555">(000) 000-0000</text>
+
+    <!-- Website -->
+    <!-- Globe icon -->
+    <circle cx="22" cy="179" r="5" fill="none" stroke="#003F87" stroke-width="0.8"/>
+    <line x1="17" y1="179" x2="27" y2="179" stroke="#003F87" stroke-width="0.5"/>
+    <ellipse cx="22" cy="179" rx="2.5" ry="5" fill="none" stroke="#003F87" stroke-width="0.5"/>
+    <text x="32" y="182" class="body" font-size="8.5" fill="#555">www.yourpackwebsite.org</text>
+
+    <!-- Tagline footer -->
+    <text x="175" y="197" text-anchor="middle" class="body-bold" font-size="7" fill="#003F87" letter-spacing="0.5">ADVENTURE AWAITS — JOIN THE FUN!</text>
+  </g>
+
+  <!-- Dimensions annotation -->
+  <text x="390" y="245" text-anchor="middle" class="body" font-size="9" fill="#AAA">3.5 × 2 in (standard business card)</text>
+
+  <!-- ==================== INSTRUCTIONS ==================== -->
+  <g transform="translate(20, 260)">
+    <text x="0" y="0" class="subtitle" font-size="13" fill="#333" letter-spacing="0.5">TEMPLATE INSTRUCTIONS</text>
+    <line x1="0" y1="6" x2="740" y2="6" stroke="#CCC" stroke-width="0.5"/>
+
+    <text x="0" y="24" class="body" font-size="10" fill="#555">Replace the placeholder text to customize this card for your pack:</text>
+
+    <text x="12" y="44" class="body-bold" font-size="9.5" fill="#444">PACK 0000</text>
+    <text x="120" y="44" class="body" font-size="9.5" fill="#666">→ Your pack number (e.g., Pack 247)</text>
+
+    <text x="12" y="60" class="body-bold" font-size="9.5" fill="#444">YOUR CITY, STATE</text>
+    <text x="120" y="60" class="body" font-size="9.5" fill="#666">→ City, state, and council name</text>
+
+    <text x="12" y="76" class="body-bold" font-size="9.5" fill="#444">MEETING INFO</text>
+    <text x="120" y="76" class="body" font-size="9.5" fill="#666">→ Day, time, and location of your pack meetings</text>
+
+    <text x="12" y="92" class="body-bold" font-size="9.5" fill="#444">CONTACT</text>
+    <text x="120" y="92" class="body" font-size="9.5" fill="#666">→ Pack email, phone, and website</text>
+
+    <text x="12" y="108" class="body-bold" font-size="9.5" fill="#444">QR CODE</text>
+    <text x="120" y="108" class="body" font-size="9.5" fill="#666">→ Replace placeholder with a QR code linking to your pack's sign-up page</text>
+
+    <text x="0" y="134" class="body" font-size="9" fill="#999">Colors: Cub Scout Blue #003F87 · Gold #FFC72C · Card size: 3.5 × 2 in (standard US business card)</text>
+  </g>
+</svg>
