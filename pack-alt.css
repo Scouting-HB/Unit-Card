@@ -1,0 +1,34 @@
+.card {
+    flex-direction: row;
+}
+
+.card-left {
+    width: 66.67%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-right {
+    width: 33.33%;
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 3px;
+}
+.unit-header {
+    font-size: 18px;
+}
+
+.contact-group {
+    text-align: right;
+    margin-left: -32px;
+}
+.qrcode {
+    align-self: end;
+    /* margin-top: 5px; */
+}
+
+.contact-details.section-heading {
+    margin-bottom: -2px;
+}

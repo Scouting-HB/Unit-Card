@@ -1,0 +1,214 @@
+@page {
+    size: letter portrait;
+    margin: 0.25in;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eee;
+    font-size: 10px;
+}
+
+.toolbar {
+    text-align: center;
+    padding: 10px;
+}
+
+.toolbar button {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 6px 16px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 4px;
+}
+
+.toolbar .copied {
+    background: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.sheet {
+    width: 8in;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 3.5in);
+    gap: .25in;
+    padding: .25in 0;
+    justify-content: center;
+}
+
+.card {
+    width: 3.5in;
+    height: 2in;
+    background: white;
+    border: 1px solid #bbb;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- TOP BADGES ---------- */
+
+.badges {
+    height: .46in;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2px;
+    padding: 2px 4px;
+}
+
+.badge {
+    width: .38in;
+    text-align: center;
+    font-size: 6px;
+}
+
+.badge img {
+    width: 100%;
+}
+
+/* ---------- UNIT HEADER ---------- */
+
+.unit-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 3px 0;
+}
+
+/* ---------- BODY ---------- */
+
+.body {
+    flex: 1;
+    display: flex;
+    padding: 5px;
+}
+
+.body-left,
+.body-right {
+    flex: 1;
+}
+
+.title {
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.communities {
+    font-size: 8px;
+    margin-top: 4px;
+}
+
+.school {
+    margin-top: 2px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.grade {
+    margin-top: 0;
+    font-size: 8px;
+}
+
+.website {
+    font-weight: bold;
+}
+
+.section-heading {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.contact-details {
+    margin-top: 2px;
+}
+
+.inline-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+}
+
+.socials {
+    font-size: 9px;
+}
+
+.qrcode {
+    float: right;
+    width: .55in;
+    height: .55in;
+    margin: 0 0 2px 4px;
+}
+
+.qrcode canvas,
+.qrcode img {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ---------- BACK CARD ---------- */
+
+.card-back {
+    width: 3.5in;
+    height: 2in;
+    background: white;
+    border: 1px solid #bbb;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.back-toggles {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.back-toggles label {
+    font-size: 11px;
+    cursor: pointer;
+    padding: 3px 8px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    background: white;
+    color: #333;
+}
+
+.back-toggles input {
+    display: none;
+}
+
+/* ---------- EDIT MODE ---------- */
+
+.edit-label {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ---------- PRINT ---------- */
+
+@media print {
+    body { background: white; }
+    .toolbar, .edit-label, .back-toggles { display: none; }
+    .sheet { padding: 0; }
+    .card, .card-back { border: .5pt solid #888; break-inside: avoid; }
+    [contenteditable]:hover, [contenteditable]:focus { outline: none; }
+}

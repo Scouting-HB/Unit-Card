@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cub Scout Pack Business Card</title>
+
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="pack.css">
+</head>
+
+<body>
+
+    <div class="toolbar" id="toolbar">
+        <button type="button" id="download-btn">Download Print Images</button>
+        <button type="button" id="copy-link-btn">Copy Link</button>
+        <button type="button" id="reset-btn">Reset to Defaults</button>
+    </div>
+
+    <!-- Edit mode: 1 front + 1 back -->
+    <div class="sheet" id="edit-sheet">
+
+        <div>
+            <div class="edit-label">Front</div>
+            <div class="card" id="card-front">
+
+                <div class="badges">
+                    <div class="badge">
+                        <img src="images/pack/Lion-insignia-CSBC.jpg" alt="Lion">
+                    </div>
+                    <div class="badge">
+                        <img src="images/pack/TIGER-color-insignia-CSBC.jpg" alt="Tiger">
+                    </div>
+                    <div class="badge">
+                        <img src="images/pack/Wolf rank-color-insignia-CSBC.jpg" alt="Wolf">
+                    </div>
+                    <div class="badge">
+                        <img src="images/pack/CS_bear-insignia-CSBC.jpg" alt="Bear">
+                    </div>
+                    <div class="badge webelos">
+                        <img src="images/pack/Webelos Oval-color-insignia-CSBC.jpg" alt="Webelos">
+                    </div>
+                    <div class="badge">
+                        <img src="images/pack/Arrow of Light-insignia-CSBC.jpg" alt="Arrow of Light">
+                    </div>
+                </div>
+
+                <div class="unit-header" contenteditable data-field="pack">CUB SCOUT PACK 120</div>
+
+                <div class="body">
+                    <div class="body-left">
+                        <div class="title section-heading" contenteditable data-field="title">YOUTHS OF ALL GENDERS Rockingham-Area Virginia</div>
+                        <div class="communities" contenteditable data-field="communities">Bridgewater &bull; Broadway &bull; Dayton &bull; Elkton &bull; Grottoes &bull; Keezletown &bull; Massanutten &bull; McGaheysville &bull; Mount Crawford &bull; Penn
+                        Laird &bull; Port Republic &bull; Singers Glen</div>
+                        <div class="school section-heading" contenteditable data-field="school">FOR CURRENT SCHOOL YEAR</div>
+                        <div class="grade" contenteditable data-field="grade">Welcoming Kindergarten through 5th Grade
+                        </div>
+                    </div>
+                    <div class="body-right">
+                        <div class="meeting-details section-heading" contenteditable data-field="meeting-details">MEETINGS</div>
+                        <div class="location-name" contenteditable data-field="location-name">Massanutten Presbyterian Church</div>
+                        <div id="qrcode" class="qrcode"></div>
+                        <div class="location-address" contenteditable data-field="location-address">50 Indian Trail Rd<br>Penn Laird, VA</div>
+                        <div class="contact-details section-heading" contenteditable data-field="contact-details">CONTACT</div>
+                        <div class="website contact url" contenteditable data-field="website"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> pack120vahc.org</div>
+                        <div class="socials contact url" contenteditable data-field="socials"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> Pack120Rockingham</div>
+                        <div class="email contact" contenteditable data-field="email">cubmaster@pack120vahc.org</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <div class="edit-label">Back</div>
+            <div class="card-back" id="card-back">
+                <img id="back-img" src="images/back/AdventureOn2023-6ftx3ft banner-CSBC-downscaled.png" alt="Card back">
+            </div>
+            <div class="back-toggles">
+                <input type="radio" name="back-image" id="back-1" value="images/back/AdventureOn2023-6ftx3ft banner-CSBC-downscaled.png" checked>
+                <label for="back-1">Banner</label>
+                <input type="radio" name="back-image" id="back-2" value="images/back/AdventureOn2023-2.5x6 banner 2-Cub Scouts and Scouts BSA-CSBC-downscaled.png">
+                <label for="back-2">Frame</label>
+                <input type="radio" name="back-image" id="back-3" value="images/back/AdventureOn2023-6ftx3ft banner-collage-CSBC-downscaled.png">
+                <label for="back-3">Collage</label>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        var STORAGE_KEY = 'pack-card-fields';
+        var fields = document.querySelectorAll('[data-field]');
+
+        // --- Collect current field values ---
+        function getFieldData() {
+            var data = {};
+            fields.forEach(function (el) {
+                data[el.dataset.field] = el.innerHTML.trim();
+            });
+            return data;
+        }
+
+        // --- Apply field values ---
+        function setFieldData(data) {
+            fields.forEach(function (el) {
+                var key = el.dataset.field;
+                if (data[key] !== undefined) {
+                    el.innerHTML = data[key];
+                }
+            });
+        }
+
+        // --- Save defaults (from the raw HTML) ---
+        var defaults = getFieldData();
+
+        // --- Load from URL params first, then localStorage ---
+        function loadFields() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.has('pack') || params.has('title')) {
+                // URL params take priority
+                var data = {};
+                fields.forEach(function (el) {
+                    var key = el.dataset.field;
+                    if (params.has(key)) {
+                        data[key] = params.get(key);
+                    }
+                });
+                setFieldData(data);
+                saveToStorage();
+                // Clean URL without reloading
+                if (window.history.replaceState) {
+                    window.history.replaceState({}, '', window.location.pathname);
+                }
+            } else {
+                // Fall back to localStorage
+                try {
+                    var stored = localStorage.getItem(STORAGE_KEY);
+                    if (stored) {
+                        setFieldData(JSON.parse(stored));
+                    }
+                } catch (e) { }
+            }
+        }
+
+        // --- Persist to localStorage ---
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(getFieldData()));
+            } catch (e) { }
+        }
+
+        // --- Save on every edit ---
+        fields.forEach(function (el) {
+            el.addEventListener('input', saveToStorage);
+        });
+
+        // --- Copy Link button ---
+        document.getElementById('copy-link-btn').addEventListener('click', function () {
+            var btn = this;
+            var data = getFieldData();
+            var params = new URLSearchParams();
+            Object.keys(data).forEach(function (key) {
+                // Store as plain text (strip HTML entities for URL readability)
+                var tmp = document.createElement('div');
+                tmp.innerHTML = data[key];
+                params.set(key, tmp.textContent);
+            });
+            var url = window.location.origin + window.location.pathname + '?' + params.toString();
+            navigator.clipboard.writeText(url).then(function () {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(function () {
+                    btn.textContent = 'Copy Link';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+
+        // --- Reset button ---
+        document.getElementById('reset-btn').addEventListener('click', function () {
+            setFieldData(defaults);
+            saveToStorage();
+        });
+
+        // --- Download high-res images ---
+        // 3x scale gives ~300 DPI for a 3.5x2in card (1050x600px)
+        var DPI_SCALE = 6;
+
+        function downloadCanvas(canvas, filename) {
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function captureElement(el) {
+            return html2canvas(el, {
+                scale: DPI_SCALE,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+        }
+
+        document.getElementById('download-btn').addEventListener('click', function () {
+            var btn = this;
+            btn.disabled = true;
+            btn.textContent = 'Generating…';
+
+            var front = document.getElementById('card-front');
+            var back = document.getElementById('card-back');
+
+            captureElement(front).then(function (frontCanvas) {
+                downloadCanvas(frontCanvas, 'card-front.png');
+                return captureElement(back);
+            }).then(function (backCanvas) {
+                downloadCanvas(backCanvas, 'card-back.png');
+                btn.disabled = false;
+                btn.textContent = 'Download Print Images';
+            }).catch(function (err) {
+                console.error('Image capture failed:', err);
+                alert('Failed to generate images. Check the console for details.');
+                btn.disabled = false;
+                btn.textContent = 'Download Print Images';
+            });
+        });
+
+        // Intercept Ctrl+P / Cmd+P to download images instead of printing
+        window.addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                document.getElementById('download-btn').click();
+            }
+        });
+
+        // --- Back image toggle ---
+        var BACK_IMG_KEY = 'pack-card-back-img';
+        var backImg = document.getElementById('back-img');
+        var backRadios = document.querySelectorAll('input[name="back-image"]');
+
+        function loadBackImage() {
+            var saved = localStorage.getItem(BACK_IMG_KEY);
+            if (saved) {
+                backImg.src = saved;
+                backRadios.forEach(function (r) {
+                    r.checked = r.value === saved;
+                });
+            }
+        }
+
+        backRadios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                backImg.src = this.value;
+                localStorage.setItem(BACK_IMG_KEY, this.value);
+            });
+        });
+
+        // --- QR code from website field ---
+        function getWebsiteUrl() {
+            var el = document.querySelector('[data-field="website"]');
+            var text = el.textContent.trim();
+            if (text && !/^https?:\/\//i.test(text)) {
+                text = 'https://' + text;
+            }
+            return text;
+        }
+
+        var qrEl = document.getElementById('qrcode');
+        var qrCode = new QRCode(qrEl, {
+            text: getWebsiteUrl(),
+            width: 256,
+            height: 256,
+            correctLevel: QRCode.CorrectLevel.M
+        });
+
+        function updateQR() {
+            var url = getWebsiteUrl();
+            if (url) {
+                qrCode.clear();
+                qrCode.makeCode(url);
+            }
+        }
+
+        document.querySelector('[data-field="website"]').addEventListener('input', updateQR);
+
+        // --- Init ---
+        loadFields();
+        loadBackImage();
+        updateQR();
+    </script>
+
+</body>
+
+</html>

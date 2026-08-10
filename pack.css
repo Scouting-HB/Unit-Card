@@ -1,0 +1,93 @@
+:root {
+    --cub-lion: #EEC250;
+    --cub-tiger: #DA834C;
+    --cub-wolf: #C6443F;
+    --cub-bear: #9FC2DC;
+    --cub-webelos: #8E9F63;
+    --cub-arrow-of-light: #E9D8C5;
+    --cub-blue: #002F6D;
+    --cub-yellow: #FFCE04;
+    --scouting-red: #CE1126;
+    --scouting-blue: #003F87;
+    --scouting-dark-blue: #003366;
+    --scouting-tan: #D6CEBD;
+    --scouting-light-tan: #E9E9E4;
+    --scouting-warm-gray: #515354;
+    --scouting-pale-gray: #858787;
+    --scouting-dark-gray: #232528;
+    --scouting-dark-tan: #AD9D7B;
+    --scouting-pale-blue: #9AB3D5;
+    --scouting-olive: #243E2C;
+    --white: #FFFFFF;
+}
+
+.body {
+    padding-top: 2px;
+}
+
+.toolbar button {
+    border: 1px solid #0B4FAE;
+    background: #0B4FAE;
+}
+
+.toolbar button:hover {
+    background: #093d8a;
+}
+
+.badge.webelos img {
+    width: 80%;
+}
+
+.unit-header {
+    background: #0B4FAE;
+    color: white;
+    border-top: 3px solid #F4C300;
+    border-bottom: 2px solid #D22027;
+}
+
+.title {
+    color: #222;
+}
+
+.communities {
+    color: #C42D34;
+}
+
+.grade {
+    color: #C42D34;
+}
+
+.website {
+    color: #0B4FAE;
+}
+
+.contact {
+    color: #0B4FAE;
+}
+
+.back-toggles input:checked + label {
+    background: #0B4FAE;
+    color: white;
+    border-color: #0B4FAE;
+}
+
+[contenteditable]:hover {
+    outline: 1px dashed #0B4FAE;
+}
+
+[contenteditable]:focus {
+    outline: 2px solid #0B4FAE;
+    outline-offset: 1px;
+}
+.qrcode {
+    width: .65in;
+    height: .65in;
+}
+
+.socials {
+    white-space: nowrap;
+}
+
+.email.contact {
+    margin-top: -2px;
+}
