@@ -85,11 +85,12 @@
 
                 <!-- Banner: graphic top-left, 1 photo -->
                 <div class="back-layout back-banner" id="layout-banner">
-                    <div class="back-graphic-wrap back-graphic-topleft">
-                        <img id="back-graphic-banner" class="back-graphic" src="images/troop/scouting/Scouts-BSA_Clean_rgb-Logo-SBBC.png" alt="Scouts BSA">
-                    </div>
                     <div class="back-photo-slot" data-slot="banner-0">
                         <span class="photo-placeholder">+ Photo</span>
+                    </div>
+                    <img class="back-banner-trefoil" src="images/troop/scouting/scout-trefoil-external-outline.svg" alt="">
+                    <div class="back-graphic-wrap back-graphic-topleft">
+                        <img id="back-graphic-banner" class="back-graphic" src="images/troop/scouting/Scouts-BSA_Clean_rgb-Logo-SBBC.png" alt="Scouts BSA">
                     </div>
                     <div class="back-graphic-wrap back-graphic-bottomleft">
                         <img class="back-graphic" src="images/troop/scouting/AdventureOn2023_ScoutsBSA_logo_SBBC.png" alt="Graphic">
@@ -134,8 +135,11 @@
                 </div>
                 <div class="back-file-inputs">
                     <label class="file-btn">Graphic <input type="file" id="graphic-input" accept="image/*"></label>
+                    <label class="file-btn">+ Upload Photos <input type="file" id="photo-upload-input" accept="image/*" multiple></label>
                 </div>
             </div>
+            <div class="edit-label" style="margin-top:8px">Select Photos <span id="photo-select-hint" class="photo-select-hint"></span></div>
+            <div class="photo-gallery" id="photo-gallery"></div>
         </div>
 
     </div>
@@ -341,45 +345,244 @@
             reader.readAsDataURL(file);
         });
 
-        // --- Photo slot uploads ---
-        var PHOTO_KEY_PREFIX = 'troop-card-photo-';
+        // --- Photo gallery ---
+        var SELECTED_PHOTOS_KEY = 'troop-card-selected-photos';
+        var CUSTOM_PHOTOS_KEY = 'troop-card-custom-photos';
+        var stockPhotos = [
+            'images/troop/scouting/activities/193A5297-photo-2024-SBBC.jpg',
+            'images/troop/scouting/activities/193A8134-cropped-photo-SBBCJPG.JPG',
+            'images/troop/scouting/activities/TRJ_Day2_0037_photo_SBBC.jpg',
+            'images/troop/scouting/activities/AU0I5676_photo_SBBC.jpg',
+            'images/troop/scouting/activities/AC6I7003_photo_SBBC.jpg',
+            'images/troop/scouting/activities/_62A5790_photo_SBBC.jpg',
+            'images/troop/scouting/activities/TRJ_Day2_0229_photo_SBBC.jpg',
+            'images/troop/scouting/activities/0B0A6168_photo_SBBC.jpg',
+            'images/troop/scouting/activities/193A7461-photo-SBBCJPG.JPG',
+            'images/troop/scouting/activities/_62A7874_photo_SBBC.jpg',
+            'images/troop/scouting/activities/AU0I6963_photo_SBBC.jpg',
+            'images/troop/scouting/activities/AC6I6172_photo_SBBC.jpg'
+        ];
+        var selectedPhotos = []; // ordered list of src strings
+        var galleryEl = document.getElementById('photo-gallery');
+        var hintEl = document.getElementById('photo-select-hint');
 
-        document.querySelectorAll('.back-photo-slot').forEach(function (slot) {
-            slot.addEventListener('click', function () {
-                var input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                input.addEventListener('change', function () {
-                    var file = this.files[0];
-                    if (!file) return;
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var dataUrl = e.target.result;
-                        applyPhoto(slot, dataUrl);
-                        try { localStorage.setItem(PHOTO_KEY_PREFIX + slot.dataset.slot, dataUrl); } catch (ex) { }
-                    };
-                    reader.readAsDataURL(file);
+        var SLOT_COUNTS = { banner: 1, frame: 4, collage: 3 };
+
+        function getCurrentLayout() {
+            var checked = document.querySelector('input[name="back-layout"]:checked');
+            return checked ? checked.value : 'banner';
+        }
+
+        function getMaxPhotos() {
+            return SLOT_COUNTS[getCurrentLayout()];
+        }
+
+        function updateHint() {
+            var max = getMaxPhotos();
+            hintEl.textContent = '(' + selectedPhotos.length + '/' + max + ')';
+        }
+
+        // --- Photo pan/zoom ---
+        var PHOTO_TRANSFORMS_KEY = 'troop-card-photo-transforms';
+        var photoTransforms = {}; // keyed by slot name, value: {scale, x, y}
+
+        function loadTransforms() {
+            try {
+                var saved = JSON.parse(localStorage.getItem(PHOTO_TRANSFORMS_KEY) || '{}');
+                if (saved) photoTransforms = saved;
+            } catch (e) { }
+        }
+
+        function saveTransforms() {
+            try { localStorage.setItem(PHOTO_TRANSFORMS_KEY, JSON.stringify(photoTransforms)); } catch (e) { }
+        }
+
+        function getTransform(slotName) {
+            return photoTransforms[slotName] || { scale: 1, x: 0, y: 0, rotate: 0 };
+        }
+
+        function applyTransform(img, t) {
+            var r = t.rotate || 0;
+            img.style.transform = 'translate(' + t.x + 'px, ' + t.y + 'px) scale(' + t.scale + ') rotate(' + r + 'deg)';
+        }
+
+        function setupPanZoom(slot) {
+            var img = slot.querySelector('img');
+            if (!img) return;
+            var slotName = slot.dataset.slot;
+            var t = getTransform(slotName);
+            applyTransform(img, t);
+
+            // Wheel: zoom (default) or rotate (shift held)
+            slot.addEventListener('wheel', function (e) {
+                e.preventDefault();
+                var img = slot.querySelector('img');
+                if (!img) return;
+                var t = getTransform(slotName);
+                if (e.shiftKey) {
+                    var scrollDelta = e.deltaX || e.deltaY;
+                    var rDelta = scrollDelta > 0 ? 5 : -5;
+                    t.rotate = (t.rotate || 0) + rDelta;
+                } else {
+                    var delta = e.deltaY > 0 ? -0.1 : 0.1;
+                    t.scale = Math.max(0.5, Math.min(5, t.scale + delta));
+                }
+                photoTransforms[slotName] = t;
+                applyTransform(img, t);
+                saveTransforms();
+            });
+
+            // Pan with mouse drag
+            var dragging = false;
+            var startX, startY, startTx, startTy;
+
+            slot.addEventListener('mousedown', function (e) {
+                var img = slot.querySelector('img');
+                if (!img) return;
+                e.preventDefault();
+                dragging = true;
+                var t = getTransform(slotName);
+                startX = e.clientX;
+                startY = e.clientY;
+                startTx = t.x;
+                startTy = t.y;
+                slot.style.cursor = 'grabbing';
+            });
+
+            window.addEventListener('mousemove', function (e) {
+                if (!dragging) return;
+                var img = slot.querySelector('img');
+                if (!img) return;
+                var t = getTransform(slotName);
+                t.x = startTx + (e.clientX - startX);
+                t.y = startTy + (e.clientY - startY);
+                photoTransforms[slotName] = t;
+                applyTransform(img, t);
+            });
+
+            window.addEventListener('mouseup', function () {
+                if (!dragging) return;
+                dragging = false;
+                slot.style.cursor = '';
+                saveTransforms();
+            });
+
+            // Double-click to reset
+            slot.addEventListener('dblclick', function (e) {
+                e.preventDefault();
+                photoTransforms[slotName] = { scale: 1, x: 0, y: 0, rotate: 0 };
+                var img = slot.querySelector('img');
+                if (img) applyTransform(img, photoTransforms[slotName]);
+                saveTransforms();
+            });
+        }
+
+        function applyPhotosToSlots() {
+            var layout = getCurrentLayout();
+            var prefix = layout + '-';
+            document.querySelectorAll('.back-photo-slot').forEach(function (slot) {
+                if (slot.dataset.slot.indexOf(prefix) !== 0) return;
+                var idx = parseInt(slot.dataset.slot.replace(prefix, ''), 10);
+                var img = slot.querySelector('img');
+                var placeholder = slot.querySelector('.photo-placeholder');
+                if (idx < selectedPhotos.length) {
+                    if (!img) {
+                        if (placeholder) placeholder.style.display = 'none';
+                        img = document.createElement('img');
+                        slot.appendChild(img);
+                        setupPanZoom(slot);
+                    }
+                    img.src = selectedPhotos[idx];
+                    applyTransform(img, getTransform(slot.dataset.slot));
+                } else {
+                    if (img) { img.remove(); }
+                    if (placeholder) placeholder.style.display = '';
+                }
+            });
+            try { localStorage.setItem(SELECTED_PHOTOS_KEY, JSON.stringify(selectedPhotos)); } catch (ex) { }
+        }
+
+        function renderGallery() {
+            galleryEl.innerHTML = '';
+            var allPhotos = stockPhotos.slice();
+            // Add custom photos
+            var custom = [];
+            try { custom = JSON.parse(localStorage.getItem(CUSTOM_PHOTOS_KEY) || '[]'); } catch (e) { }
+            allPhotos = allPhotos.concat(custom);
+
+            allPhotos.forEach(function (src) {
+                var thumb = document.createElement('img');
+                thumb.className = 'photo-gallery-thumb';
+                thumb.src = src;
+                thumb.alt = 'Photo';
+                var idx = selectedPhotos.indexOf(src);
+                if (idx !== -1) {
+                    thumb.classList.add('selected');
+                    thumb.title = 'Selected #' + (idx + 1);
+                }
+                thumb.addEventListener('click', function () {
+                    var i = selectedPhotos.indexOf(src);
+                    if (i !== -1) {
+                        selectedPhotos.splice(i, 1);
+                    } else {
+                        if (selectedPhotos.length >= getMaxPhotos()) {
+                            selectedPhotos.shift();
+                        }
+                        selectedPhotos.push(src);
+                    }
+                    renderGallery();
+                    applyPhotosToSlots();
+                    updateHint();
                 });
-                input.click();
+                galleryEl.appendChild(thumb);
+            });
+        }
+
+        // Upload custom photos
+        document.getElementById('photo-upload-input').addEventListener('change', function () {
+            var files = this.files;
+            if (!files.length) return;
+            var custom = [];
+            try { custom = JSON.parse(localStorage.getItem(CUSTOM_PHOTOS_KEY) || '[]'); } catch (e) { }
+            var loaded = 0;
+            Array.from(files).forEach(function (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    custom.push(e.target.result);
+                    loaded++;
+                    if (loaded === files.length) {
+                        try { localStorage.setItem(CUSTOM_PHOTOS_KEY, JSON.stringify(custom)); } catch (ex) { }
+                        renderGallery();
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+            this.value = '';
+        });
+
+        // Re-apply photos when layout changes
+        layoutRadios.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                var max = SLOT_COUNTS[this.value];
+                if (selectedPhotos.length > max) {
+                    selectedPhotos = selectedPhotos.slice(0, max);
+                }
+                applyPhotosToSlots();
+                renderGallery();
+                updateHint();
             });
         });
 
-        function applyPhoto(slot, dataUrl) {
-            var img = slot.querySelector('img');
-            if (!img) {
-                var placeholder = slot.querySelector('.photo-placeholder');
-                if (placeholder) placeholder.style.display = 'none';
-                img = document.createElement('img');
-                slot.appendChild(img);
-            }
-            img.src = dataUrl;
-        }
-
         function loadPhotos() {
-            document.querySelectorAll('.back-photo-slot').forEach(function (slot) {
-                var saved = localStorage.getItem(PHOTO_KEY_PREFIX + slot.dataset.slot);
-                if (saved) applyPhoto(slot, saved);
-            });
+            try {
+                var saved = JSON.parse(localStorage.getItem(SELECTED_PHOTOS_KEY) || '[]');
+                if (saved.length) selectedPhotos = saved;
+            } catch (e) { }
+            var max = getMaxPhotos();
+            if (selectedPhotos.length > max) selectedPhotos = selectedPhotos.slice(0, max);
+            renderGallery();
+            applyPhotosToSlots();
+            updateHint();
         }
 
         // --- QR code from website field ---
@@ -414,6 +617,7 @@
         loadFields();
         loadBackLayout();
         loadGraphic();
+        loadTransforms();
         loadPhotos();
         updateQR();
     </script>
