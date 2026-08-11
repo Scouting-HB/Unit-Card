@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="unit-header" contenteditable data-field="troop">SCOUTS BSA TROOP 120</div>
+                <div class="unit-header" contenteditable data-field="troop">SCOUT TROOP 242</div>
 
                 <div class="body">
                     <div class="body-left">
@@ -62,7 +62,7 @@
                     <div class="body-right">
                         <div id="qrcode" class="qrcode"></div>
                         <div class="meeting-details section-heading" contenteditable data-field="meeting-details">MEETINGS</div>
-                        <div class="meeting-datetime" contenteditable data-field="meeting-datetime">Mondays 7:00 PM</div>
+                        <div class="meeting-datetime" contenteditable data-field="meeting-datetime">Mondays 7-8:30 PM</div>
                         <div class="location" contenteditable data-field="location">
                             Harrisonburg Baptist Church<br>
                             501 S. Main St., Harrisonburg, VA
@@ -71,12 +71,13 @@
                 </div>
 
                 <div class="contact-group">
-                    <div class="website contact url" contenteditable data-field="website"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> troop242.us</div>
-                    <div class="socials contact url" contenteditable data-field="socials"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> Pack120Rockingham</div>
-                    <div class="email contact" contenteditable data-field="email"><svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg> scoutmaster@troop242.us</div>
+                    <div class="website contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> <span contenteditable data-field="website">troop242.us</span></div>
+                    <div class="socials contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> <span contenteditable data-field="socials">Troop242</span></div>
+                    <div class="email contact"><svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg> <span contenteditable data-field="email">scoutmaster@troop242.us</span></div>
                 </div>
 
             </div>
+            <div class="contact-toggles" id="contact-toggles"></div>
         </div>
 
         <div>
@@ -125,20 +126,17 @@
             </div>
 
             <div class="back-controls">
-                <div class="back-toggles">
-                    <input type="radio" name="back-layout" id="back-1" value="banner" checked>
-                    <label for="back-1">Banner</label>
-                    <input type="radio" name="back-layout" id="back-2" value="frame">
-                    <label for="back-2">Frame</label>
-                    <input type="radio" name="back-layout" id="back-3" value="collage">
-                    <label for="back-3">Collage</label>
-                </div>
-                <div class="back-file-inputs">
-                    <label class="file-btn">Graphic <input type="file" id="graphic-input" accept="image/*"></label>
-                    <label class="file-btn">+ Upload Photos <input type="file" id="photo-upload-input" accept="image/*" multiple></label>
-                </div>
+                <input type="radio" name="back-layout" id="back-1" value="banner" checked>
+                <label for="back-1">Banner</label>
+                <input type="radio" name="back-layout" id="back-2" value="frame">
+                <label for="back-2">Frame</label>
+                <input type="radio" name="back-layout" id="back-3" value="collage">
+                <label for="back-3">Collage</label>
+                <label class="file-btn">Graphic <input type="file" id="graphic-input" accept="image/*"></label>
+                <label class="file-btn">+ Upload Photos <input type="file" id="photo-upload-input" accept="image/*" multiple></label>
+                <span class="photo-url-group"><input type="text" id="photo-url-input" class="photo-url-input" placeholder="Image URL"><button type="button" id="photo-url-btn" class="file-btn">Add</button></span>
             </div>
-            <div class="edit-label" style="margin-top:8px">Select Photos <span id="photo-select-hint" class="photo-select-hint"></span></div>
+            <div class="edit-label back-photos-label">Select Photos <span id="photo-select-hint" class="photo-select-hint"></span></div>
             <div class="photo-gallery" id="photo-gallery"></div>
         </div>
 
@@ -147,479 +145,84 @@
 
     <script src="qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/card-fields.js"></script>
+    <script src="js/card-export.js"></script>
+    <script src="js/qr.js"></script>
+    <script src="js/contact-toggles.js"></script>
+    <script src="js/back-layout.js"></script>
+    <script src="js/photo-manager.js"></script>
     <script>
-        var STORAGE_KEY = 'troop-card-fields';
-        var fields = document.querySelectorAll('[data-field]');
-
-        // --- Collect current field values ---
-        function getFieldData() {
-            var data = {};
-            fields.forEach(function (el) {
-                data[el.dataset.field] = el.innerHTML.trim();
-            });
-            return data;
-        }
-
-        // --- Apply field values ---
-        function setFieldData(data) {
-            fields.forEach(function (el) {
-                var key = el.dataset.field;
-                if (data[key] !== undefined) {
-                    el.innerHTML = data[key];
-                }
-            });
-        }
-
-        // --- Save defaults (from the raw HTML) ---
-        var defaults = getFieldData();
-
-        // --- Load from URL params first, then localStorage ---
-        function loadFields() {
-            var params = new URLSearchParams(window.location.search);
-            if (params.has('troop') || params.has('title')) {
-                // URL params take priority
-                var data = {};
-                fields.forEach(function (el) {
-                    var key = el.dataset.field;
-                    if (params.has(key)) {
-                        data[key] = params.get(key);
-                    }
-                });
-                setFieldData(data);
-                saveToStorage();
-                // Clean URL without reloading
-                if (window.history.replaceState) {
-                    window.history.replaceState({}, '', window.location.pathname);
-                }
-            } else {
-                // Fall back to localStorage
-                try {
-                    var stored = localStorage.getItem(STORAGE_KEY);
-                    if (stored) {
-                        setFieldData(JSON.parse(stored));
-                    }
-                } catch (e) { }
-            }
-        }
-
-        // --- Persist to localStorage ---
-        function saveToStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(getFieldData()));
-            } catch (e) { }
-        }
-
-        // --- Save on every edit ---
-        fields.forEach(function (el) {
-            el.addEventListener('input', saveToStorage);
+        var fieldsMgr = CardFields.init({
+            storageKey: 'troop-card-fields',
+            urlTriggerFields: ['troop', 'title']
         });
 
-        // --- Copy Link button ---
+        var photoMgr = PhotoManager.init({
+            stockPhotos: [
+                'images/troop/scouting/activities/193A5297-photo-2024-SBBC.jpg',
+                'images/troop/scouting/activities/193A8134-cropped-photo-SBBCJPG.JPG',
+                'images/troop/scouting/activities/TRJ_Day2_0037_photo_SBBC.jpg',
+                'images/troop/scouting/activities/AU0I5676_photo_SBBC.jpg',
+                'images/troop/scouting/activities/AC6I7003_photo_SBBC.jpg',
+                'images/troop/scouting/activities/_62A5790_photo_SBBC.jpg',
+                'images/troop/scouting/activities/TRJ_Day2_0229_photo_SBBC.jpg',
+                'images/troop/scouting/activities/0B0A6168_photo_SBBC.jpg',
+                'images/troop/scouting/activities/193A7461-photo-SBBCJPG.JPG',
+                'images/troop/scouting/activities/_62A7874_photo_SBBC.jpg',
+                'images/troop/scouting/activities/AU0I6963_photo_SBBC.jpg',
+                'images/troop/scouting/activities/AC6I6172_photo_SBBC.jpg'
+            ],
+            slotCounts: { banner: 1, frame: 4, collage: 3 },
+            selectedPhotosKey: 'troop-card-selected-photos',
+            customPhotosKey: 'troop-card-custom-photos',
+            transformsKey: 'troop-card-photo-transforms',
+            galleryId: 'photo-gallery',
+            hintId: 'photo-select-hint',
+            uploadInputId: 'photo-upload-input',
+            urlInputId: 'photo-url-input',
+            urlBtnId: 'photo-url-btn',
+            layoutRadioSelector: 'input[name="back-layout"]'
+        });
+
         document.getElementById('copy-link-btn').addEventListener('click', function () {
-            var btn = this;
-            var data = getFieldData();
-            var params = new URLSearchParams();
-            Object.keys(data).forEach(function (key) {
-                // Store as plain text (strip HTML entities for URL readability)
-                var tmp = document.createElement('div');
-                tmp.innerHTML = data[key];
-                params.set(key, tmp.textContent);
-            });
-            var url = window.location.origin + window.location.pathname + '?' + params.toString();
-            navigator.clipboard.writeText(url).then(function () {
-                btn.textContent = 'Copied!';
-                btn.classList.add('copied');
-                setTimeout(function () {
-                    btn.textContent = 'Copy Link';
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
+            var extra = {};
+            var pe = photoMgr.getExtraParams();
+            var ce = contactToggles.getExtraParams();
+            Object.keys(pe).forEach(function (k) { extra[k] = pe[k]; });
+            Object.keys(ce).forEach(function (k) { extra[k] = ce[k]; });
+            fieldsMgr.copyLink(this, extra);
         });
 
-        // --- Reset button ---
         document.getElementById('reset-btn').addEventListener('click', function () {
-            setFieldData(defaults);
-            saveToStorage();
+            fieldsMgr.reset(function () { photoMgr.reset(); contactToggles.reset(); });
         });
 
-        // --- Download high-res images ---
-        var DPI_SCALE = 6;
+        CardExport.init({ frontId: 'card-front', backId: 'card-back', btnId: 'download-btn' });
 
-        function downloadCanvas(canvas, filename) {
-            var link = document.createElement('a');
-            link.download = filename;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-
-        function captureElement(el) {
-            return html2canvas(el, {
-                scale: DPI_SCALE,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            });
-        }
-
-        document.getElementById('download-btn').addEventListener('click', function () {
-            var btn = this;
-            btn.disabled = true;
-            btn.textContent = 'Generating…';
-
-            var front = document.getElementById('card-front');
-            var back = document.getElementById('card-back');
-
-            captureElement(front).then(function (frontCanvas) {
-                downloadCanvas(frontCanvas, 'card-front.png');
-                return captureElement(back);
-            }).then(function (backCanvas) {
-                downloadCanvas(backCanvas, 'card-back.png');
-                btn.disabled = false;
-                btn.textContent = 'Download Print Images';
-            }).catch(function (err) {
-                console.error('Image capture failed:', err);
-                alert('Failed to generate images. Check the console for details.');
-                btn.disabled = false;
-                btn.textContent = 'Download Print Images';
-            });
-        });
-
-        // Intercept Ctrl+P / Cmd+P to download images instead of printing
-        window.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-                e.preventDefault();
-                document.getElementById('download-btn').click();
+        BackLayout.init({
+            layoutKey: 'troop-card-back-layout',
+            graphicKey: 'troop-card-back-graphic',
+            graphicInputId: 'graphic-input',
+            layouts: {
+                banner: document.getElementById('layout-banner'),
+                frame: document.getElementById('layout-frame'),
+                collage: document.getElementById('layout-collage')
             }
         });
 
-        // --- Back layout toggle ---
-        var BACK_LAYOUT_KEY = 'troop-card-back-layout';
-        var layoutRadios = document.querySelectorAll('input[name="back-layout"]');
-        var layouts = {
-            banner: document.getElementById('layout-banner'),
-            frame: document.getElementById('layout-frame'),
-            collage: document.getElementById('layout-collage')
-        };
+        var qr = CardQR.init({ fieldSelector: '[data-field="website"]', elementId: 'qrcode' });
 
-        function showLayout(name) {
-            Object.keys(layouts).forEach(function (k) {
-                layouts[k].style.display = k === name ? 'flex' : 'none';
-            });
-        }
-
-        function loadBackLayout() {
-            var saved = localStorage.getItem(BACK_LAYOUT_KEY) || 'banner';
-            showLayout(saved);
-            layoutRadios.forEach(function (r) { r.checked = r.value === saved; });
-        }
-
-        layoutRadios.forEach(function (radio) {
-            radio.addEventListener('change', function () {
-                showLayout(this.value);
-                localStorage.setItem(BACK_LAYOUT_KEY, this.value);
-            });
+        var contactToggles = ContactToggles.init({
+            storageKey: 'troop-card-contact-toggles',
+            containerId: 'contact-toggles',
+            fields: ['website', 'socials', 'email']
         });
 
-        // --- Graphic upload ---
-        var GRAPHIC_KEY = 'troop-card-back-graphic';
-        var graphicImgs = document.querySelectorAll('.back-graphic');
-
-        function setGraphic(dataUrl) {
-            graphicImgs.forEach(function (img) { img.src = dataUrl; });
-        }
-
-        function loadGraphic() {
-            var saved = localStorage.getItem(GRAPHIC_KEY);
-            if (saved) setGraphic(saved);
-        }
-
-        document.getElementById('graphic-input').addEventListener('change', function () {
-            var file = this.files[0];
-            if (!file) return;
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var dataUrl = e.target.result;
-                setGraphic(dataUrl);
-                try { localStorage.setItem(GRAPHIC_KEY, dataUrl); } catch (ex) { }
-            };
-            reader.readAsDataURL(file);
-        });
-
-        // --- Photo gallery ---
-        var SELECTED_PHOTOS_KEY = 'troop-card-selected-photos';
-        var CUSTOM_PHOTOS_KEY = 'troop-card-custom-photos';
-        var stockPhotos = [
-            'images/troop/scouting/activities/193A5297-photo-2024-SBBC.jpg',
-            'images/troop/scouting/activities/193A8134-cropped-photo-SBBCJPG.JPG',
-            'images/troop/scouting/activities/TRJ_Day2_0037_photo_SBBC.jpg',
-            'images/troop/scouting/activities/AU0I5676_photo_SBBC.jpg',
-            'images/troop/scouting/activities/AC6I7003_photo_SBBC.jpg',
-            'images/troop/scouting/activities/_62A5790_photo_SBBC.jpg',
-            'images/troop/scouting/activities/TRJ_Day2_0229_photo_SBBC.jpg',
-            'images/troop/scouting/activities/0B0A6168_photo_SBBC.jpg',
-            'images/troop/scouting/activities/193A7461-photo-SBBCJPG.JPG',
-            'images/troop/scouting/activities/_62A7874_photo_SBBC.jpg',
-            'images/troop/scouting/activities/AU0I6963_photo_SBBC.jpg',
-            'images/troop/scouting/activities/AC6I6172_photo_SBBC.jpg'
-        ];
-        var selectedPhotos = []; // ordered list of src strings
-        var galleryEl = document.getElementById('photo-gallery');
-        var hintEl = document.getElementById('photo-select-hint');
-
-        var SLOT_COUNTS = { banner: 1, frame: 4, collage: 3 };
-
-        function getCurrentLayout() {
-            var checked = document.querySelector('input[name="back-layout"]:checked');
-            return checked ? checked.value : 'banner';
-        }
-
-        function getMaxPhotos() {
-            return SLOT_COUNTS[getCurrentLayout()];
-        }
-
-        function updateHint() {
-            var max = getMaxPhotos();
-            hintEl.textContent = '(' + selectedPhotos.length + '/' + max + ')';
-        }
-
-        // --- Photo pan/zoom ---
-        var PHOTO_TRANSFORMS_KEY = 'troop-card-photo-transforms';
-        var photoTransforms = {}; // keyed by slot name, value: {scale, x, y}
-
-        function loadTransforms() {
-            try {
-                var saved = JSON.parse(localStorage.getItem(PHOTO_TRANSFORMS_KEY) || '{}');
-                if (saved) photoTransforms = saved;
-            } catch (e) { }
-        }
-
-        function saveTransforms() {
-            try { localStorage.setItem(PHOTO_TRANSFORMS_KEY, JSON.stringify(photoTransforms)); } catch (e) { }
-        }
-
-        function getTransform(slotName) {
-            return photoTransforms[slotName] || { scale: 1, x: 0, y: 0, rotate: 0 };
-        }
-
-        function applyTransform(img, t) {
-            var r = t.rotate || 0;
-            img.style.transform = 'translate(' + t.x + 'px, ' + t.y + 'px) scale(' + t.scale + ') rotate(' + r + 'deg)';
-        }
-
-        function setupPanZoom(slot) {
-            var img = slot.querySelector('img');
-            if (!img) return;
-            var slotName = slot.dataset.slot;
-            var t = getTransform(slotName);
-            applyTransform(img, t);
-
-            // Wheel: zoom (default) or rotate (shift held)
-            slot.addEventListener('wheel', function (e) {
-                e.preventDefault();
-                var img = slot.querySelector('img');
-                if (!img) return;
-                var t = getTransform(slotName);
-                if (e.shiftKey) {
-                    var scrollDelta = e.deltaX || e.deltaY;
-                    var rDelta = scrollDelta > 0 ? 5 : -5;
-                    t.rotate = (t.rotate || 0) + rDelta;
-                } else {
-                    var delta = e.deltaY > 0 ? -0.1 : 0.1;
-                    t.scale = Math.max(0.5, Math.min(5, t.scale + delta));
-                }
-                photoTransforms[slotName] = t;
-                applyTransform(img, t);
-                saveTransforms();
-            });
-
-            // Pan with mouse drag
-            var dragging = false;
-            var startX, startY, startTx, startTy;
-
-            slot.addEventListener('mousedown', function (e) {
-                var img = slot.querySelector('img');
-                if (!img) return;
-                e.preventDefault();
-                dragging = true;
-                var t = getTransform(slotName);
-                startX = e.clientX;
-                startY = e.clientY;
-                startTx = t.x;
-                startTy = t.y;
-                slot.style.cursor = 'grabbing';
-            });
-
-            window.addEventListener('mousemove', function (e) {
-                if (!dragging) return;
-                var img = slot.querySelector('img');
-                if (!img) return;
-                var t = getTransform(slotName);
-                t.x = startTx + (e.clientX - startX);
-                t.y = startTy + (e.clientY - startY);
-                photoTransforms[slotName] = t;
-                applyTransform(img, t);
-            });
-
-            window.addEventListener('mouseup', function () {
-                if (!dragging) return;
-                dragging = false;
-                slot.style.cursor = '';
-                saveTransforms();
-            });
-
-            // Double-click to reset
-            slot.addEventListener('dblclick', function (e) {
-                e.preventDefault();
-                photoTransforms[slotName] = { scale: 1, x: 0, y: 0, rotate: 0 };
-                var img = slot.querySelector('img');
-                if (img) applyTransform(img, photoTransforms[slotName]);
-                saveTransforms();
-            });
-        }
-
-        function applyPhotosToSlots() {
-            var layout = getCurrentLayout();
-            var prefix = layout + '-';
-            document.querySelectorAll('.back-photo-slot').forEach(function (slot) {
-                if (slot.dataset.slot.indexOf(prefix) !== 0) return;
-                var idx = parseInt(slot.dataset.slot.replace(prefix, ''), 10);
-                var img = slot.querySelector('img');
-                var placeholder = slot.querySelector('.photo-placeholder');
-                if (idx < selectedPhotos.length) {
-                    if (!img) {
-                        if (placeholder) placeholder.style.display = 'none';
-                        img = document.createElement('img');
-                        slot.appendChild(img);
-                        setupPanZoom(slot);
-                    }
-                    img.src = selectedPhotos[idx];
-                    applyTransform(img, getTransform(slot.dataset.slot));
-                } else {
-                    if (img) { img.remove(); }
-                    if (placeholder) placeholder.style.display = '';
-                }
-            });
-            try { localStorage.setItem(SELECTED_PHOTOS_KEY, JSON.stringify(selectedPhotos)); } catch (ex) { }
-        }
-
-        function renderGallery() {
-            galleryEl.innerHTML = '';
-            var allPhotos = stockPhotos.slice();
-            // Add custom photos
-            var custom = [];
-            try { custom = JSON.parse(localStorage.getItem(CUSTOM_PHOTOS_KEY) || '[]'); } catch (e) { }
-            allPhotos = allPhotos.concat(custom);
-
-            allPhotos.forEach(function (src) {
-                var thumb = document.createElement('img');
-                thumb.className = 'photo-gallery-thumb';
-                thumb.src = src;
-                thumb.alt = 'Photo';
-                var idx = selectedPhotos.indexOf(src);
-                if (idx !== -1) {
-                    thumb.classList.add('selected');
-                    thumb.title = 'Selected #' + (idx + 1);
-                }
-                thumb.addEventListener('click', function () {
-                    var i = selectedPhotos.indexOf(src);
-                    if (i !== -1) {
-                        selectedPhotos.splice(i, 1);
-                    } else {
-                        if (selectedPhotos.length >= getMaxPhotos()) {
-                            selectedPhotos.shift();
-                        }
-                        selectedPhotos.push(src);
-                    }
-                    renderGallery();
-                    applyPhotosToSlots();
-                    updateHint();
-                });
-                galleryEl.appendChild(thumb);
-            });
-        }
-
-        // Upload custom photos
-        document.getElementById('photo-upload-input').addEventListener('change', function () {
-            var files = this.files;
-            if (!files.length) return;
-            var custom = [];
-            try { custom = JSON.parse(localStorage.getItem(CUSTOM_PHOTOS_KEY) || '[]'); } catch (e) { }
-            var loaded = 0;
-            Array.from(files).forEach(function (file) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    custom.push(e.target.result);
-                    loaded++;
-                    if (loaded === files.length) {
-                        try { localStorage.setItem(CUSTOM_PHOTOS_KEY, JSON.stringify(custom)); } catch (ex) { }
-                        renderGallery();
-                    }
-                };
-                reader.readAsDataURL(file);
-            });
-            this.value = '';
-        });
-
-        // Re-apply photos when layout changes
-        layoutRadios.forEach(function (radio) {
-            radio.addEventListener('change', function () {
-                var max = SLOT_COUNTS[this.value];
-                if (selectedPhotos.length > max) {
-                    selectedPhotos = selectedPhotos.slice(0, max);
-                }
-                applyPhotosToSlots();
-                renderGallery();
-                updateHint();
-            });
-        });
-
-        function loadPhotos() {
-            try {
-                var saved = JSON.parse(localStorage.getItem(SELECTED_PHOTOS_KEY) || '[]');
-                if (saved.length) selectedPhotos = saved;
-            } catch (e) { }
-            var max = getMaxPhotos();
-            if (selectedPhotos.length > max) selectedPhotos = selectedPhotos.slice(0, max);
-            renderGallery();
-            applyPhotosToSlots();
-            updateHint();
-        }
-
-        // --- QR code from website field ---
-        function getWebsiteUrl() {
-            var el = document.querySelector('[data-field="website"]');
-            var text = el.textContent.trim();
-            if (text && !/^https?:\/\//i.test(text)) {
-                text = 'https://' + text;
-            }
-            return text;
-        }
-
-        var qrEl = document.getElementById('qrcode');
-        var qrCode = new QRCode(qrEl, {
-            text: getWebsiteUrl(),
-            width: 256,
-            height: 256,
-            correctLevel: QRCode.CorrectLevel.M
-        });
-
-        function updateQR() {
-            var url = getWebsiteUrl();
-            if (url) {
-                qrCode.clear();
-                qrCode.makeCode(url);
-            }
-        }
-
-        document.querySelector('[data-field="website"]').addEventListener('input', updateQR);
-
-        // --- Init ---
-        loadFields();
-        loadBackLayout();
-        loadGraphic();
-        loadTransforms();
-        loadPhotos();
-        updateQR();
+        var urlParams = fieldsMgr.getUrlParams();
+        photoMgr.loadFromParams(urlParams);
+        contactToggles.loadFromParams(urlParams);
+        fieldsMgr.load();
+        qr.update();
     </script>
 
 </body>

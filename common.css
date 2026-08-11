@@ -164,7 +164,7 @@ body {
     box-sizing: border-box;
 }
 
-.card-back img {
+.card-back > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -203,11 +203,31 @@ body {
     letter-spacing: 1px;
 }
 
+/* ---------- CONTACT TOGGLES ---------- */
+
+.contact-toggles {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.contact-toggle {
+    font-size: 11px;
+    color: #666;
+    cursor: pointer;
+    user-select: none;
+}
+
+.contact-toggle input {
+    margin-right: 2px;
+}
+
 /* ---------- PRINT ---------- */
 
 @media print {
     body { background: white; }
-    .toolbar, .edit-label, .back-toggles { display: none; }
+    .toolbar, .edit-label, .back-toggles, .contact-toggles { display: none; }
     .sheet { padding: 0; }
     .card, .card-back { border: .5pt solid #888; break-inside: avoid; }
     [contenteditable]:hover, [contenteditable]:focus { outline: none; }

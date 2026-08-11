@@ -7,6 +7,60 @@
 
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="pack.css">
+    <style>
+        /* --- Alt layout overrides (applied within .card-alt) --- */
+        .card-alt {
+            flex-direction: row;
+        }
+        .card-alt .card-left {
+            width: 66.67%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-alt .card-right {
+            width: 33.33%;
+            padding: 3px 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            margin-top: 3px;
+        }
+        .card-alt .unit-header {
+            font-size: 18px;
+        }
+        .card-alt .contact-group {
+            text-align: right;
+            margin-left: -32px;
+        }
+        .card-alt .qrcode {
+            align-self: end;
+        }
+        .card-alt .contact-details.section-heading {
+            margin-bottom: -2px;
+        }
+
+        /* Two-row sheet for dual preview */
+        .sheet-row {
+            width: 8in;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 3.5in);
+            gap: .25in;
+            padding: .125in 0;
+            justify-content: center;
+        }
+        .sheet-row:first-of-type { padding-top: .25in; }
+        .sheet-row:last-of-type { padding-bottom: .25in; }
+
+        .layout-label {
+            text-align: center;
+            font-size: 13px;
+            color: #444;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,10 +71,10 @@
         <button type="button" id="reset-btn">Reset to Defaults</button>
     </div>
 
-    <!-- Edit mode: 1 front + 1 back -->
-    <div class="sheet" id="edit-sheet">
-
+    <!-- Standard layout -->
+    <div class="sheet-row">
         <div>
+            <div class="layout-label">Standard Layout</div>
             <div class="edit-label">Front</div>
             <div class="card" id="card-front">
 
@@ -62,16 +116,18 @@
                         <div id="qrcode" class="qrcode"></div>
                         <div class="location-address" contenteditable data-field="location-address">50 Indian Trail Rd<br>Penn Laird, VA</div>
                         <div class="contact-details section-heading" contenteditable data-field="contact-details">CONTACT</div>
-                        <div class="website contact url" contenteditable data-field="website"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> pack120vahc.org</div>
-                        <div class="socials contact url" contenteditable data-field="socials"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> Pack120Rockingham</div>
-                        <div class="email contact" contenteditable data-field="email">cubmaster@pack120vahc.org</div>
+                        <div class="website contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> <span contenteditable data-field="website">pack120vahc.org</span></div>
+                        <div class="socials contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> <span contenteditable data-field="socials">Pack120Rockingham</span></div>
+                        <div class="email contact"><span contenteditable data-field="email">cubmaster@pack120vahc.org</span></div>
                     </div>
                 </div>
 
             </div>
+            <div class="contact-toggles" id="contact-toggles"></div>
         </div>
 
         <div>
+            <div class="layout-label">&nbsp;</div>
             <div class="edit-label">Back</div>
             <div class="card-back" id="card-back">
                 <img id="back-img" src="images/back/AdventureOn2023-6ftx3ft banner-CSBC-downscaled.png" alt="Card back">
@@ -85,212 +141,158 @@
                 <label for="back-3">Collage</label>
             </div>
         </div>
+    </div>
 
+    <!-- Alt layout (read-only mirror) -->
+    <div class="sheet-row">
+        <div>
+            <div class="layout-label">Alternate Layout</div>
+            <div class="edit-label">Front</div>
+            <div class="card card-alt" id="card-front-alt">
+
+                <div class="card-left">
+                    <div class="badges">
+                        <div class="badge">
+                            <img src="images/pack/Lion-insignia-CSBC.jpg" alt="Lion">
+                        </div>
+                        <div class="badge">
+                            <img src="images/pack/TIGER-color-insignia-CSBC.jpg" alt="Tiger">
+                        </div>
+                        <div class="badge">
+                            <img src="images/pack/Wolf rank-color-insignia-CSBC.jpg" alt="Wolf">
+                        </div>
+                        <div class="badge">
+                            <img src="images/pack/CS_bear-insignia-CSBC.jpg" alt="Bear">
+                        </div>
+                        <div class="badge webelos">
+                            <img src="images/pack/Webelos Oval-color-insignia-CSBC.jpg" alt="Webelos">
+                        </div>
+                        <div class="badge">
+                            <img src="images/pack/Arrow of Light-insignia-CSBC.jpg" alt="Arrow of Light">
+                        </div>
+                    </div>
+
+                    <div class="unit-header" data-mirror="pack">CUB SCOUT PACK 120</div>
+
+                    <div class="body">
+                        <div class="body-left">
+                            <div class="title section-heading" data-mirror="title">YOUTHS OF ALL GENDERS Rockingham-Area Virginia</div>
+                            <div class="communities" data-mirror="communities">Bridgewater &bull; Broadway &bull; Dayton &bull; Elkton &bull; Grottoes &bull; Keezletown &bull; Massanutten &bull; McGaheysville &bull; Mount Crawford &bull; Penn
+                            Laird &bull; Port Republic &bull; Singers Glen</div>
+                            <div class="school section-heading" data-mirror="school">FOR CURRENT SCHOOL YEAR</div>
+                            <div class="grade" data-mirror="grade">Welcoming Kindergarten through 5th Grade
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-right">
+                    <div class="meeting-details section-heading" data-mirror="meeting-details">MEETINGS</div>
+                    <div class="location" data-mirror="location-name">Massanutten Presbyterian Church</div>
+                    <div id="qrcode-alt" class="qrcode"></div>
+                    <div class="contact-group">
+                        <div class="contact-details section-heading" data-mirror="contact-details">CONTACT</div>
+                        <div class="website contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2"/></svg> <span data-mirror="website">pack120vahc.org</span></div>
+                        <div class="socials contact url"><svg class="inline-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg> <span data-mirror="socials">Pack120Rockingham</span></div>
+                        <div class="email contact"><span data-mirror="email">cubmaster@pack120vahc.org</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <div class="layout-label">&nbsp;</div>
+            <div class="edit-label">Back</div>
+            <div class="card-back" id="card-back-alt">
+                <img id="back-img-alt" src="images/back/AdventureOn2023-6ftx3ft banner-CSBC-downscaled.png" alt="Card back">
+            </div>
+        </div>
     </div>
 
 
     <script src="qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/card-fields.js"></script>
+    <script src="js/card-export.js"></script>
+    <script src="js/qr.js"></script>
+    <script src="js/back-image.js"></script>
+    <script src="js/contact-toggles.js"></script>
     <script>
-        var STORAGE_KEY = 'pack-card-fields';
-        var fields = document.querySelectorAll('[data-field]');
+        var fieldsMgr = CardFields.init({
+            storageKey: 'pack-card-fields',
+            urlTriggerFields: ['pack', 'title']
+        });
 
-        // --- Collect current field values ---
-        function getFieldData() {
-            var data = {};
-            fields.forEach(function (el) {
-                data[el.dataset.field] = el.innerHTML.trim();
-            });
-            return data;
-        }
+        // --- Mirror: sync editable fields to the alt card ---
+        var mirrors = document.querySelectorAll('[data-mirror]');
 
-        // --- Apply field values ---
-        function setFieldData(data) {
-            fields.forEach(function (el) {
-                var key = el.dataset.field;
-                if (data[key] !== undefined) {
-                    el.innerHTML = data[key];
+        function syncMirrors() {
+            mirrors.forEach(function (mirror) {
+                var source = document.querySelector('[data-field="' + mirror.dataset.mirror + '"]');
+                if (source) {
+                    mirror.innerHTML = source.innerHTML;
                 }
             });
         }
 
-        // --- Save defaults (from the raw HTML) ---
-        var defaults = getFieldData();
-
-        // --- Load from URL params first, then localStorage ---
-        function loadFields() {
-            var params = new URLSearchParams(window.location.search);
-            if (params.has('pack') || params.has('title')) {
-                // URL params take priority
-                var data = {};
-                fields.forEach(function (el) {
-                    var key = el.dataset.field;
-                    if (params.has(key)) {
-                        data[key] = params.get(key);
-                    }
-                });
-                setFieldData(data);
-                saveToStorage();
-                // Clean URL without reloading
-                if (window.history.replaceState) {
-                    window.history.replaceState({}, '', window.location.pathname);
-                }
-            } else {
-                // Fall back to localStorage
-                try {
-                    var stored = localStorage.getItem(STORAGE_KEY);
-                    if (stored) {
-                        setFieldData(JSON.parse(stored));
-                    }
-                } catch (e) { }
-            }
-        }
-
-        // --- Persist to localStorage ---
-        function saveToStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(getFieldData()));
-            } catch (e) { }
-        }
-
-        // --- Save on every edit ---
-        fields.forEach(function (el) {
-            el.addEventListener('input', saveToStorage);
+        // Sync on every edit
+        document.querySelectorAll('[data-field]').forEach(function (el) {
+            el.addEventListener('input', syncMirrors);
         });
 
-        // --- Copy Link button ---
-        document.getElementById('copy-link-btn').addEventListener('click', function () {
-            var btn = this;
-            var data = getFieldData();
-            var params = new URLSearchParams();
-            Object.keys(data).forEach(function (key) {
-                // Store as plain text (strip HTML entities for URL readability)
-                var tmp = document.createElement('div');
-                tmp.innerHTML = data[key];
-                params.set(key, tmp.textContent);
-            });
-            var url = window.location.origin + window.location.pathname + '?' + params.toString();
-            navigator.clipboard.writeText(url).then(function () {
-                btn.textContent = 'Copied!';
-                btn.classList.add('copied');
-                setTimeout(function () {
-                    btn.textContent = 'Copy Link';
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        });
-
-        // --- Reset button ---
-        document.getElementById('reset-btn').addEventListener('click', function () {
-            setFieldData(defaults);
-            saveToStorage();
-        });
-
-        // --- Download high-res images ---
-        // 3x scale gives ~300 DPI for a 3.5x2in card (1050x600px)
-        var DPI_SCALE = 6;
-
-        function downloadCanvas(canvas, filename) {
-            var link = document.createElement('a');
-            link.download = filename;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
-
-        function captureElement(el) {
-            return html2canvas(el, {
-                scale: DPI_SCALE,
-                useCORS: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            });
-        }
-
-        document.getElementById('download-btn').addEventListener('click', function () {
-            var btn = this;
-            btn.disabled = true;
-            btn.textContent = 'Generating…';
-
-            var front = document.getElementById('card-front');
-            var back = document.getElementById('card-back');
-
-            captureElement(front).then(function (frontCanvas) {
-                downloadCanvas(frontCanvas, 'card-front.png');
-                return captureElement(back);
-            }).then(function (backCanvas) {
-                downloadCanvas(backCanvas, 'card-back.png');
-                btn.disabled = false;
-                btn.textContent = 'Download Print Images';
-            }).catch(function (err) {
-                console.error('Image capture failed:', err);
-                alert('Failed to generate images. Check the console for details.');
-                btn.disabled = false;
-                btn.textContent = 'Download Print Images';
-            });
-        });
-
-        // Intercept Ctrl+P / Cmd+P to download images instead of printing
-        window.addEventListener('keydown', function (e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-                e.preventDefault();
-                document.getElementById('download-btn').click();
-            }
-        });
-
-        // --- Back image toggle ---
-        var BACK_IMG_KEY = 'pack-card-back-img';
-        var backImg = document.getElementById('back-img');
-        var backRadios = document.querySelectorAll('input[name="back-image"]');
-
-        function loadBackImage() {
-            var saved = localStorage.getItem(BACK_IMG_KEY);
-            if (saved) {
-                backImg.src = saved;
-                backRadios.forEach(function (r) {
-                    r.checked = r.value === saved;
-                });
-            }
-        }
-
-        backRadios.forEach(function (radio) {
+        // Also sync alt back image when back-image radio changes
+        var altBackImg = document.getElementById('back-img-alt');
+        document.querySelectorAll('input[name="back-image"]').forEach(function (radio) {
             radio.addEventListener('change', function () {
-                backImg.src = this.value;
-                localStorage.setItem(BACK_IMG_KEY, this.value);
+                altBackImg.src = this.value;
             });
         });
 
-        // --- QR code from website field ---
-        function getWebsiteUrl() {
-            var el = document.querySelector('[data-field="website"]');
-            var text = el.textContent.trim();
-            if (text && !/^https?:\/\//i.test(text)) {
-                text = 'https://' + text;
-            }
-            return text;
-        }
+        document.getElementById('copy-link-btn').addEventListener('click', function () {
+            fieldsMgr.copyLink(this, contactToggles.getExtraParams());
+        });
 
-        var qrEl = document.getElementById('qrcode');
-        var qrCode = new QRCode(qrEl, {
-            text: getWebsiteUrl(),
+        document.getElementById('reset-btn').addEventListener('click', function () {
+            fieldsMgr.reset(function () { syncMirrors(); contactToggles.reset(); });
+        });
+
+        CardExport.init({ frontId: 'card-front', backId: 'card-back', btnId: 'download-btn' });
+        BackImage.init({ storageKey: 'pack-card-back-img', imgId: 'back-img', radioName: 'back-image' });
+
+        var qr = CardQR.init({ fieldSelector: '[data-field="website"]', elementId: 'qrcode' });
+
+        var contactToggles = ContactToggles.init({
+            storageKey: 'pack-card-contact-toggles',
+            containerId: 'contact-toggles',
+            fields: ['website', 'socials', 'email'],
+            mirrors: true
+        });
+
+        // Alt QR code (mirrors main)
+        var qrAlt = new QRCode(document.getElementById('qrcode-alt'), {
+            text: 'https://pack120vahc.org',
             width: 256,
             height: 256,
             correctLevel: QRCode.CorrectLevel.M
         });
-
-        function updateQR() {
-            var url = getWebsiteUrl();
-            if (url) {
-                qrCode.clear();
-                qrCode.makeCode(url);
-            }
+        function updateAltQR() {
+            var el = document.querySelector('[data-field="website"]');
+            var text = el.textContent.trim();
+            if (text && !/^https?:\/\//i.test(text)) text = 'https://' + text;
+            if (text) { qrAlt.clear(); qrAlt.makeCode(text); }
         }
+        document.querySelector('[data-field="website"]').addEventListener('input', updateAltQR);
 
-        document.querySelector('[data-field="website"]').addEventListener('input', updateQR);
+        contactToggles.loadFromParams(fieldsMgr.getUrlParams());
+        fieldsMgr.load();
+        syncMirrors();
+        qr.update();
+        updateAltQR();
 
-        // --- Init ---
-        loadFields();
-        loadBackImage();
-        updateQR();
+        // Sync alt back image on load
+        var savedBack = localStorage.getItem('pack-card-back-img');
+        if (savedBack) altBackImg.src = savedBack;
     </script>
 
 </body>

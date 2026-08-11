@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scout Business Card Templates</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eee;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #243E2C;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+            text-align: center;
+            max-width: 480px;
+            line-height: 1.5;
+        }
+
+        .cards {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card-link {
+            display: block;
+            width: 260px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .card-link:hover {
+            border-color: #003F87;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-banner {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-banner.pack {
+            background: #0B4FAE;
+        }
+
+        .card-banner.troop {
+            background: #243E2C;
+        }
+
+        .card-banner span {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .card-body h2 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .card-body p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Scout Business Card Templates</h1>
+    <p class="subtitle">
+        Customizable business card templates for Scouting units.
+        Edit fields directly on the card, then download print-ready images.
+    </p>
+
+    <div class="cards">
+        <a href="pack.html" class="card-link">
+            <div class="card-banner pack">
+                <span>Cub Scouts</span>
+            </div>
+            <div class="card-body">
+                <h2>Pack Card</h2>
+                <p>For Cub Scout Packs (K&ndash;5th grade). Includes two layout options with rank badges from Lion through Arrow of Light.</p>
+            </div>
+        </a>
+
+        <a href="troop.html" class="card-link">
+            <div class="card-banner troop">
+                <span>Scouts BSA</span>
+            </div>
+            <div class="card-body">
+                <h2>Troop Card</h2>
+                <p>For Scouts BSA Troops (6th&ndash;12th grade). Features customizable back with photo gallery, pan/zoom, and multiple layouts.</p>
+            </div>
+        </a>
+    </div>
+</body>
+
+</html>

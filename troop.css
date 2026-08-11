@@ -138,6 +138,8 @@
 
 .back-graphic {
     display: block;
+    width: auto;
+    height: auto;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -158,11 +160,10 @@
 }
 
 .back-photo-slot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    position: absolute;
     display: block;
     transform-origin: center center;
+    /* sized/positioned by JS via sizeImageToCover */
 }
 
 .photo-placeholder {
@@ -209,13 +210,16 @@
     justify-content: center;
     width: .6in;
     flex-shrink: 0;
-    padding: 4px;
+    overflow: visible;
 }
 
 .back-frame .back-graphic-left-rotated .back-graphic {
     transform: rotate(-90deg);
-    max-width: 2in;
-    max-height: .55in;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: 0.55in;
+    object-fit: contain;
 }
 
 .back-frame .back-photos-4 {
@@ -223,8 +227,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 2px;
-    padding: 2px;
+    /* gap: 2px; */
+    /* padding: 2px; */
 }
 
 /* --- Collage: 3 photos on top, graphic centered bottom --- */
@@ -236,30 +240,73 @@
 .back-collage .back-photos-3 {
     flex: 1;
     display: flex;
-    gap: 2px;
-    padding: 2px 2px 0 2px;
+    /* gap: 2px; */
+    padding: 5px;
+    max-height: 121px;
+}
+
+.back-collage {
+    position: relative;
 }
 
 .back-collage .back-graphic-bottom-center {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    padding: 2px 4px 4px;
-    flex-shrink: 0;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .back-collage .back-graphic-bottom-center .back-graphic {
-    max-height: .5in;
+    overflow: visible;
+
+}
+
+.card-back .back-collage .back-graphic-bottom-center img {
+    width: 85%;
 }
 
 /* --- Back controls --- */
 
 .back-controls {
     display: flex;
-    gap: 10px;
+    gap: 4px;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 4px;
+}
+
+.back-controls input[type="radio"] {
+    display: none;
+}
+
+.back-controls input[type="radio"] + label {
+    font-size: 11px;
+    cursor: pointer;
+    padding: 3px 8px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    background: white;
+    color: #333;
+}
+
+.back-controls input[type="radio"]:checked + label {
+    background: #003F87;
+    color: white;
+    border-color: #003F87;
+}
+
+.back-controls .file-btn {
+    margin-left: 6px;
+}
+
+.back-photos-label {
+    margin-top: 4px;
+    margin-bottom: 0;
 }
 
 .file-btn {
@@ -274,6 +321,24 @@
 
 .file-btn input[type="file"] {
     display: none;
+}
+
+.photo-url-group {
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 6px;
+}
+
+.photo-url-input {
+    font-size: 11px;
+    padding: 3px 6px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    width: 120px;
+}
+
+@media print {
+    .photo-url-group { display: none; }
 }
 
 .card-back img,back-banner-trefoil {
@@ -323,4 +388,12 @@
 
 @media print {
     .photo-gallery, .photo-select-hint { display: none; }
+}
+
+.back-collage .back-photo-slot {
+    border: 3px solid white;
+    padding: 2px;
+    background: var(--scouting-red);
+    margin: 5px;
+    min-width: 0;
 }
