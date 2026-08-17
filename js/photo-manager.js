@@ -16,8 +16,17 @@ var PhotoManager = (function () {
         var uploadInput = document.getElementById(opts.uploadInputId);
         var layoutRadios = document.querySelectorAll(opts.layoutRadioSelector);
 
-        var selectedPhotos = [];
+        // Per-layout photo selections: { banner: [...], frame: [...], collage: [...] }
+        var selectedByLayout = {};
+        Object.keys(slotCounts).forEach(function (k) { selectedByLayout[k] = []; });
         var photoTransforms = {};
+
+        function getSelectedPhotos() {
+            return selectedByLayout[getCurrentLayout()];
+        }
+        function setSelectedPhotos(arr) {
+            selectedByLayout[getCurrentLayout()] = arr;
+        }
 
         function getCurrentLayout() {
             var checked = document.querySelector(opts.layoutRadioSelector + ':checked');
@@ -29,7 +38,7 @@ var PhotoManager = (function () {
         }
 
         function updateHint() {
-            hintEl.textContent = '(' + selectedPhotos.length + '/' + getMaxPhotos() + ')';
+            hintEl.textContent = '(' + getSelectedPhotos().length + '/' + getMaxPhotos() + ')';
         }
 
         // --- Transforms ---
@@ -159,20 +168,21 @@ var PhotoManager = (function () {
                 var idx = parseInt(slot.dataset.slot.replace(prefix, ''), 10);
                 var img = slot.querySelector('img');
                 var placeholder = slot.querySelector('.photo-placeholder');
-                if (idx < selectedPhotos.length) {
+                var sel = getSelectedPhotos();
+                if (idx < sel.length) {
                     if (!img) {
                         if (placeholder) placeholder.style.display = 'none';
                         img = document.createElement('img');
                         slot.appendChild(img);
                         setupPanZoom(slot);
                     }
-                    img.src = selectedPhotos[idx];
+                    img.src = sel[idx];
                 } else {
                     if (img) { img.remove(); }
                     if (placeholder) placeholder.style.display = '';
                 }
             });
-            try { localStorage.setItem(selectedPhotosKey, JSON.stringify(selectedPhotos)); } catch (ex) { }
+            try { localStorage.setItem(selectedPhotosKey, JSON.stringify(selectedByLayout)); } catch (ex) { }
         }
 
         // --- Gallery ---
@@ -189,20 +199,22 @@ var PhotoManager = (function () {
                 thumb.className = 'photo-gallery-thumb';
                 thumb.src = src;
                 thumb.alt = 'Photo';
-                var idx = selectedPhotos.indexOf(src);
+                var sel = getSelectedPhotos();
+                var idx = sel.indexOf(src);
                 if (idx !== -1) {
                     thumb.classList.add('selected');
                     thumb.title = 'Selected #' + (idx + 1);
                 }
                 thumb.addEventListener('click', function () {
-                    var i = selectedPhotos.indexOf(src);
+                    var sel = getSelectedPhotos();
+                    var i = sel.indexOf(src);
                     if (i !== -1) {
-                        selectedPhotos.splice(i, 1);
+                        sel.splice(i, 1);
                     } else {
-                        if (selectedPhotos.length >= getMaxPhotos()) {
-                            selectedPhotos.shift();
+                        if (sel.length >= getMaxPhotos()) {
+                            sel.shift();
                         }
-                        selectedPhotos.push(src);
+                        sel.push(src);
                     }
                     renderGallery();
                     applyPhotosToSlots();
@@ -269,10 +281,6 @@ var PhotoManager = (function () {
 
         layoutRadios.forEach(function (radio) {
             radio.addEventListener('change', function () {
-                var max = slotCounts[this.value];
-                if (selectedPhotos.length > max) {
-                    selectedPhotos = selectedPhotos.slice(0, max);
-                }
                 applyPhotosToSlots();
                 renderGallery();
                 updateHint();
@@ -283,11 +291,18 @@ var PhotoManager = (function () {
 
         function loadPhotos() {
             try {
-                var saved = JSON.parse(localStorage.getItem(selectedPhotosKey) || '[]');
-                if (saved.length) selectedPhotos = saved;
+                var saved = JSON.parse(localStorage.getItem(selectedPhotosKey) || '{}');
+                if (Array.isArray(saved)) {
+                    // Migrate old flat array format: assign to current layout
+                    selectedByLayout[getCurrentLayout()] = saved;
+                } else if (saved && typeof saved === 'object') {
+                    Object.keys(saved).forEach(function (k) {
+                        if (selectedByLayout.hasOwnProperty(k)) {
+                            selectedByLayout[k] = saved[k];
+                        }
+                    });
+                }
             } catch (e) { }
-            var max = getMaxPhotos();
-            if (selectedPhotos.length > max) selectedPhotos = selectedPhotos.slice(0, max);
             renderGallery();
             applyPhotosToSlots();
             updateHint();
@@ -296,7 +311,7 @@ var PhotoManager = (function () {
         // --- Reset ---
 
         function reset() {
-            selectedPhotos = [];
+            Object.keys(selectedByLayout).forEach(function (k) { selectedByLayout[k] = []; });
             photoTransforms = {};
             applyPhotosToSlots();
             renderGallery();
